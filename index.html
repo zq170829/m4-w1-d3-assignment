@@ -1,23 +1,371 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <title>Midule 4 Week 1 Assignment</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <head>
+    <title>Module 4 Week 1 Assignment</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"
+    />
+    <!-- Vue -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.11/vue.js"></script>
-</head>
-<body>
-    
-<div class="main-wrapper">
-  
-    <div class="header">
+    <script src="vue.js"></script>
+    <!-- CSS File -->
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <div class="main-wrapper">
+      <div class="header">
         <h1>Fresh Food To Go</h1>
+      </div>
     </div>
-    <div id="vue">
-       
+    <div id="app">
+      <div id="product">
+        <item v-for="item in items" v-bind:item_data="item"></item>
+      </div>
+      <div id="cart">
+        <div id="head">
+          <h3>Shopping Cart</h3>
+          <div id="price">Price</div>
+          <div id="quantity">Quantity</div>
+          <div id="total">Total</div>
+        </div>
+        <buyitem
+          v-for="buyitem in buyitems"
+          v-bind:buy_data="buyitem"
+        ></buyitem>
+        <h5 v-if="total()">Sum: $ {{total()}}</h5>
+      </div>
     </div>
 
-</div>
-</body>
+    <template id="product-box">
+      <div class="box">
+        <img :src="item_data.img" />
+        <h2>{{item_data.title}}</h2>
+        <div class="itemprice">$ {{item_data.price}}</div>
+        <div class="description"><i>{{item_data.description}}</i></div>
+        <button class="addButton" v-on:click="addItem(item_data)">
+          Add to Cart
+        </button>
+      </div>
+    </template>
+
+    <template id="buy-box">
+      <div class="row">
+        <img :src="buy_data.img" />
+        <h4>{{buy_data.title}}</h4>
+        <p>$ {{buy_data.price}}</p>
+        <div class="qty-minus" v-on:click="minusQty(buy_data)">-</div>
+        <div class="qty">{{buy_data.qty}}</div>
+        <div class="qty-plus" v-on:click="plusQty(buy_data)">+</div>
+        <div class="del" v-on:click="removeItem(buy_data)">Remove</div>
+        <h5 class="totalprice">{{buy_data.total}}</h5>
+      </div>
+    </template>
+
+    <script>
+      var pastaClick = 0;
+      var redcrabClick = 0;
+      var breakfastClick = 0;
+      var seashellsClick = 0;
+      var ultimatekakabClick = 0;
+      var chickensteakClick = 0;
+      var fieltmignonClick = 0;
+      var bistrobrunchClick = 0;
+      var califoniacrepeClick = 0;
+      var topburgerClick = 0;
+      var chickenpizzaClick = 0;
+      var wokhealthyClick = 0;
+
+      Vue.component("item", {
+        template: "#product-box",
+        props: ["item_data", "buyitems"],
+        methods: {
+          addItem: function (item_data) {
+            if (item_data.id == "pasta") {
+              pastaClick += 1;
+              if (pastaClick <= 1) {
+                this.pushData();
+              } else {
+                var i = this.findIndex(this.$parent.buyitems, "id", "pasta");
+                this.$parent.buyitems[i].qty += 1;
+                this.$parent.buyitems[i].total =this.$parent.buyitems[i].qty * this.$parent.buyitems[i].price;
+                console.log(i);
+              }
+            } else if (item_data.id == "redcrab") {
+                redcrabClick += 1;
+              if (redcrabClick <= 1) {
+                this.pushData();
+              } else {
+                var i = this.findIndex(this.$parent.buyitems, "id", "redcrab");
+                this.$parent.buyitems[i].qty += 1;
+                this.$parent.buyitems[i].total =this.$parent.buyitems[i].qty * this.$parent.buyitems[i].price;
+              }
+            } else if (item_data.id == "breakfast") {
+                breakfastClick += 1;
+              if (breakfastClick <= 1) {
+                this.pushData();
+              } else {
+                var i = this.findIndex(this.$parent.buyitems, "id", "breakfast");
+                this.$parent.buyitems[i].qty += 1;
+                this.$parent.buyitems[i].total =this.$parent.buyitems[i].qty * this.$parent.buyitems[i].price;
+              }
+            } else if (item_data.id == "seashells") {
+                seashellsClick += 1;
+              if (seashellsClick<= 1) {
+                this.pushData();
+              } else {
+                var i = this.findIndex(this.$parent.buyitems, "id", "seashells");
+                this.$parent.buyitems[i].qty += 1;
+                this.$parent.buyitems[i].total =this.$parent.buyitems[i].qty * this.$parent.buyitems[i].price;
+              }
+            } else if (item_data.id == "ultimatekakab") {
+                ultimatekakabClick += 1;
+              if (ultimatekakabClick<= 1) {
+                this.pushData();
+              } else {
+                var i = this.findIndex(this.$parent.buyitems, "id", "ultimatekakab");
+                this.$parent.buyitems[i].qty += 1;
+                this.$parent.buyitems[i].total =this.$parent.buyitems[i].qty * this.$parent.buyitems[i].price;
+              }
+            } else if (item_data.id == "chickensteak") {
+                chickensteakClick += 1;
+              if (chickensteakClick<= 1) {
+                this.pushData();
+              } else {
+                var i = this.findIndex(this.$parent.buyitems, "id", "chickensteak");
+                this.$parent.buyitems[i].qty += 1;
+                this.$parent.buyitems[i].total =this.$parent.buyitems[i].qty * this.$parent.buyitems[i].price;
+              }
+            } else if (item_data.id == "fieltmignon") {
+                fieltmignonClick += 1;
+              if (fieltmignonClick<= 1) {
+                this.pushData();
+              } else {
+                var i = this.findIndex(this.$parent.buyitems, "id", "fieltmignon");
+                this.$parent.buyitems[i].qty += 1;
+                this.$parent.buyitems[i].total =this.$parent.buyitems[i].qty * this.$parent.buyitems[i].price;
+              }
+            } else if (item_data.id == "bistrobrunch") {
+                bistrobrunchClick += 1;
+              if (bistrobrunchClick<= 1) {
+                this.pushData();
+              } else {
+                var i = this.findIndex(this.$parent.buyitems, "id", "bistrobrunch");
+                this.$parent.buyitems[i].qty += 1;
+                this.$parent.buyitems[i].total =this.$parent.buyitems[i].qty * this.$parent.buyitems[i].price;
+              }
+            } else if (item_data.id == "califoniacrepe") {
+                califoniacrepeClick += 1;
+              if (califoniacrepeClick<= 1) {
+                this.pushData();
+              } else {
+                var i = this.findIndex(this.$parent.buyitems, "id", "califoniacrepe");
+                this.$parent.buyitems[i].qty += 1;
+                this.$parent.buyitems[i].total =this.$parent.buyitems[i].qty * this.$parent.buyitems[i].price;
+              }
+            } else if (item_data.id == "topburger") {
+                topburgerClick += 1;
+              if (topburgerClick<= 1) {
+                this.pushData();
+              } else {
+                var i = this.findIndex(this.$parent.buyitems, "id", "topburger");
+                this.$parent.buyitems[i].qty += 1;
+                this.$parent.buyitems[i].total =this.$parent.buyitems[i].qty * this.$parent.buyitems[i].price;
+              }
+            } else if (item_data.id == "chickenpizza") {
+                chickenpizzaClick += 1;
+              if (chickenpizzaClick<= 1) {
+                this.pushData();
+              } else {
+                var i = this.findIndex(this.$parent.buyitems, "id", "chickenpizza");
+                this.$parent.buyitems[i].qty += 1;
+                this.$parent.buyitems[i].total =this.$parent.buyitems[i].qty * this.$parent.buyitems[i].price;
+              }
+            } else {
+                wokhealthyClick += 1;
+              if (wokhealthyClick <= 1) {
+                this.pushData();
+              } else {
+                var i = this.findIndex(this.$parent.buyitems,"id", "wokhealthy");
+                this.$parent.buyitems[i].qty += 1;
+                this.$parent.buyitems[i].total =this.$parent.buyitems[i].qty * this.$parent.buyitems[i].price;
+              }
+            }
+            console.log(pastaClick, redcrabClick, breakfastClick,seashellsClick,ultimatekakabClick,chickensteakClick,fieltmignonClick,bistrobrunchClick,
+            califoniacrepeClick,topburgerClick,chickenpizzaClick,wokhealthyClick);
+          },
+          pushData: function () {
+            this.$parent.buyitems.push({
+              img: this.item_data.img,
+              title: this.item_data.title,
+              price: this.item_data.price,
+              description: this.item_data.description,
+              qty: 1,
+              total: this.item_data.price,
+              id: this.item_data.id,
+            });
+          },
+          findIndex: function (array, attr, value) {
+            for (var i = 0; i < array.length; i += 1) {
+              if (array[i][attr] === value) {
+                return i;
+              }
+            }
+            return -1;
+          },
+        },
+      });
+
+      Vue.component("buyitem", {
+        template: "#buy-box",
+        props: ["buy_data", "buyitems"],
+        methods: {
+          removeItem: function (buy_data) {
+            var index = this.$parent.buyitems.indexOf(buy_data);
+            this.$parent.buyitems.splice(index, 1);
+            if (buy_data.id == "pasta") {
+                pastaClick = 0;
+            } else if (buy_data.id == "redcrab") {
+                redcrabClick = 0;
+            } else if (buy_data.id == "breakfast") {
+                breakfastClick = 0;
+            } else if (buy_data.id == "seashells") {
+                seashellsClick = 0;
+            } else if (buy_data.id == "ultimatekakab") {
+                ultimatekakabClick = 0;
+            } else if (buy_data.id == "chickensteak") {
+                chickensteakClick = 0;
+            } else if (buy_data.id == "fieltmignon") {
+                fieltmignonClick = 0;
+            } else if (buy_data.id == "bistrobrunch") {
+                bistrobrunchClick = 0;
+            } else if (buy_data.id == "califoniacrepe") {
+                califoniacrepeClick = 0;
+            } else if (buy_data.id == "topburger") {
+                topburgerClick = 0;
+            } else if (buy_data.id == "chickenpizza") {
+                chickenpizzaClick = 0;
+            } else {
+                wokhealthyClick = 0;
+            }
+          },
+          plusQty: function (buy_data) {
+            buy_data.qty += 1;
+            buy_data.total = buy_data.qty * buy_data.price;
+          },
+          minusQty: function (buy_data) {
+            buy_data.qty -= 1;
+            if (buy_data.qty < 0) {
+              buy_data.qty = 0;
+            }
+            buy_data.total = buy_data.qty * buy_data.price;
+          },
+        },
+      });
+
+      var app = new Vue({
+        el: "#app",
+        data: {
+          items: [
+            {
+              img: "https://upload.wikimedia.org/wikipedia/commons/f/f0/Spaghetti_aglio%2C_olio_e_peperoncino_%2816284859030%29.jpg",
+              title: "Pasta",
+              description: "Healthy Pasta",
+              price: "25",
+              id: "pasta",
+            },
+            {
+              img: "https://upload.wikimedia.org/wikipedia/commons/6/6a/Jacques_Lameloise%2C_escab%C3%A8che_d%27%C3%A9crevisses_sur_gaspacho_d%27asperge_et_cresson.jpg",
+              title: "Red Crab",
+              price: "25",
+              description: "Fresh from Alaska",
+              id: "redcrab",
+            },
+            {
+              img: "https://upload.wikimedia.org/wikipedia/commons/0/02/Breakfast_at_Irving_Street_Kitchen.jpg",
+              title: "Breakfast Special",
+              price: "25",
+              description: "Good for the soul",
+              id: "breakfast",
+            },
+            {
+              img: "https://upload.wikimedia.org/wikipedia/commons/4/4b/Seafood_linguine.jpg",
+              title: "Sea Shells Mix",
+              price: "25",
+              description: "For the shell lovers",
+              id: "seashells",
+            },
+            {
+              img: "https://upload.wikimedia.org/wikipedia/commons/a/a5/Various_kebab.jpg",
+              title: "Ultimate Kebab",
+              price: "25",
+              description: "The best from Middle East",
+              id: "ultimatekakab",
+            },
+            {
+              img: "https://upload.wikimedia.org/wikipedia/commons/d/d9/Chicken_steak_with_pepper_sauce.jpg",
+              title: "Chicken Steak",
+              price: "25",
+              description: "Grilled to perfection",
+              id: "chickensteak",
+            },
+            {
+              img: "https://upload.wikimedia.org/wikipedia/commons/1/1a/.Filet_mignon_et_foie_gras_au_muscat_de_Beaumes-de-Venise%2C_Pastis_Bistro%2C_Palo_Alto.jpg",
+              title: "Filet Mignon",
+              price: "25",
+              description: "Juicy steak served with potatoes gratin",
+              id: "fieltmignon",
+            },
+            {
+              img: "https://upload.wikimedia.org/wikipedia/commons/4/48/Dishes_at_Bistro_C%2C_Hastings_Street%2C_Noosa_Heads%2C_Queensland_02.jpg",
+              title: "Bistro Brunch",
+              price: "25",
+              description: "A touch of Australia",
+              id: "bistrobrunch",
+            },
+            {
+              img: "https://https://upload.wikimedia.org/wikipedia/commons/3/32/2011-04-09_17.02.43%2C_Whispers_Cafe_and_Creperie%2C_Belmont%2C_CA_%285982715933%29.jpgupload.wikimedia.org/wikipedia/commons/4/48/Dishes_at_Bistro_C%2C_Hastings_Street%2C_Noosa_Heads%2C_Queensland_02.jpg",
+              title: "California Crepe",
+              price: "25",
+              description: "Stuffed with grilled shrimp",
+              id: "califoniacrepe",
+            },
+            {
+              img: "https://upload.wikimedia.org/wikipedia/commons/d/d4/Hamburguesa_de_carne.jpg",
+              title: "Top Burger",
+              price: "25",
+              description: "The tallest hamburger from Peru",
+              id: "topburger",
+            },
+            {
+              img: "https://upload.wikimedia.org/wikipedia/commons/3/33/Round_Table_chicken_%26_garlic_pizza.JPG",
+              title: "Chicken Garlic Pizza",
+              price: "25",
+              description: "Our specific pizza",
+              id: "chickenpizza",
+            },
+            {
+              img: "https://upload.wikimedia.org/wikipedia/commons/d/d2/Stir_Fry_Wok_-_Free_For_Commercial_Use_-_FFCU_%2827159057131%29.jpg",
+              title: "Wok way healthy",
+              price: "25",
+              description: "Healthy blend of noodles and vegies",
+              id: "wokhealthy",
+            },
+          ],
+          buyitems: [],
+        },
+        methods: {
+          total: function () {
+            var sum = 0;
+            this.buyitems.forEach(function (buyitem) {
+              sum += parseInt(buyitem.total);
+            });
+            return sum;
+          },
+        },
+      });
+    </script>
+  </body>
 </html>

@@ -1,0 +1,127 @@
+@import url(https://fonts.googleapis.com/css?family=Bitter:400,400italic,700);
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Bitter"; }
+
+html,
+body {
+  background-color: white;
+  font-family: Calibri, sans-serif; }
+
+.header {
+  background-color: #3a6073;
+  height: 200px;
+  text-align: center;
+  padding-top: 90px;
+  color: white; }
+
+#app {
+  width: 1400px;
+  margin: 35px auto; }
+  #app #product .box {
+    width: 280px;
+    background-color: white;
+    display: inline-block;
+    margin: 0 10px;
+    position: relative;
+    text-align: center; }
+    #app #product .box img {
+      width: 280px;
+      height: 190px; }
+    #app #product .box h2 {
+      margin-left: 20px;
+      font-size: 18px; }
+    #app #product .box .addButton {
+      border: solid 1px black;
+      align-items: center;
+      background-color: white;
+      margin-bottom: 10px; }
+
+#cart #head {
+  width: 100%;
+  height: 40px;
+  display: block;
+  background-color: #3a6073;
+  color: white; }
+  #cart #head h3 {
+    display: inline-block; }
+  #cart #head #price {
+    display: inline-block;
+    margin-left: 200px; }
+  #cart #head #quantity {
+    display: inline-block;
+    margin-left: 200px; }
+  #cart #head #total {
+    display: inline-block;
+    float: right;
+    margin-right: 10px;
+    text-align: right; }
+
+#cart .row {
+  width: 100%;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.24);
+  display: block;
+  float: left; }
+  #cart .row img {
+    float: left;
+    width: 50px;
+    height: 50px;
+    margin-top: 10px; }
+  #cart .row h4 {
+    float: left;
+    margin: 0;
+    line-height: 100px;
+    margin-left: 20px;
+    width: 200px; }
+  #cart .row p {
+    float: left;
+    margin: 0;
+    width: 80px;
+    line-height: 100px;
+    margin-left: 35px;
+    text-align: center; }
+  #cart .row .qty-minus {
+    float: left;
+    width: 20px;
+    line-height: 100px;
+    margin-left: 60px;
+    text-align: center;
+    cursor: pointer; }
+  #cart .row .qty {
+    float: left;
+    width: 20px;
+    line-height: 100px;
+    margin-left: 20px;
+    text-align: center; }
+  #cart .row .qty-plus {
+    float: left;
+    width: 20px;
+    line-height: 100px;
+    margin-left: 20px;
+    text-align: center;
+    cursor: pointer; }
+  #cart .row .del {
+    float: left;
+    width: 30px;
+    line-height: 100px;
+    margin-left: 40px;
+    cursor: pointer;
+    text-decoration: underline;
+    color: red; }
+  #cart .row .totalprice {
+    float: right;
+    width: 30px;
+    line-height: 100px;
+    margin-left: 10px;
+    text-align: right;
+    margin-right: 10px; }
+  #cart .row .row p::before,
+  #cart .row .box p::before,
+  #cart .row .totalprice::before {
+    content: "$"; }
+
+#cart h5 {
+  font-size: 1.2rem;
+  text-align: right; }
